@@ -1,18 +1,10 @@
 
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
-
 var filenamesList = undefined;
 
 $(document).ready(function () {
-
-    var options = {
-        item: 'filename-item'
-    };
-
+    var options = { item: 'filename-item'};
     filenamesList = new List('left_content', options);
-
 });
-
 
 function triggerUpdate()
 {
@@ -24,22 +16,17 @@ function triggerUpdate()
     else {
         PostQueryRequestToServer(queryStr, $("#querytype").val())
     }
-    
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
 
 $("#searchString").on('input', function () {
     triggerUpdate()
-
 });
 
 $("#querytype").on('change', function () {
     triggerUpdate()
 });
-
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
 
 function PostQueryRequestToServer(searchStr, querytype) {
 
@@ -59,14 +46,11 @@ function PostQueryRequestToServer(searchStr, querytype) {
             $(".filename").click(function (event) {
                 var v = filenamesList.get("filename", event.target.innerText);
                 console.log(v[0].values().id);
-                loadFile(v[0].values().id, v[0].values().filename, v[0].values().directory);
+                retrieveFileFromServer(v[0].values().id, v[0].values().filename, v[0].values().directory);
             });
-
         }
     });
 }
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *  //
 
 function fillFileDetails(response) {
     $('#source_code').html("<pre><code>" + (response) + "</pre></code>");
@@ -76,7 +60,7 @@ function fillFileDetails(response) {
     $('#fileNameHeader').html("<h4>" + dir + "\\" + fn + "</h4>")
 }
 
-function loadFile(id, fn, dir) {
+function retrieveFileFromServer(id, fn, dir) {
     $.ajax({
         url: 'file/?id=' + id,
         type: 'GET',
@@ -84,6 +68,5 @@ function loadFile(id, fn, dir) {
             fillFileDetails(response, fn, dir)
         }
     });
-
 }
 
