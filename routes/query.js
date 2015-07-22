@@ -1,35 +1,60 @@
-/**
- * Created by yaronpd on 14/07/2015.
- */
+
 var express = require('express');
 var router = express.Router();
 var elasticsearch = require('elasticsearch');
 var fs = require('fs');
 var cfg = JSON.parse(fs.readFileSync('cfg.json', 'utf8'));
-
-
+var logdev = require('util');
 
 router.get('/', function (req, res, next) {
 
-        // host: '1.9.65.77:9200',
     var client = new elasticsearch.Client({
         host: cfg.serverAddress + ':' + cfg.serverPort
     });
 
-    var results = [];
-
     // @TBD Add validation check for all variables.
 
-    client.search({
+    var QBbyType = {};
+    var searchBody = {};
+    
+    if(req.query.t == "full")
+    {
+        searchBody = {
         q: "source:*" + req.query.q + "*",
         from: 0,
         size: 100,
         fields: ["directory", "filename"],
         lowercaseExpandedTerms : true,
 		minScore: 0.5
+        }
+    }
+    else if(req.query.t == "prefix")
+    {
+        searchBody = {
+        q: "source:" + req.query.q + "*",
+        from: 0,
+        size: 100,
+        fields: ["directory", "filename"],
+        lowercaseExpandedTerms : true,
+		minScore: 0.5
+        }
+        
+    }
+    else if(req.query.t == "exact")
+    {
+        searchBody = {
+        q: "source:" + "*" + req.query.q + "*",
+        from: 0,
+        size: 100,
+        fields: ["directory", "filename"],
+        lowercaseExpandedTerms : true,
+		minScore: 0.5
+        }
+        
+    }
+ 
 
-    }).then(function (body) {
-        var hits = body.hits.hits;
+    client.search(searchBody).then(function (body) {
         var results = [];
         for (var i = 0, tot = body.hits.hits.length; i < tot; i++) {
             results.push({
@@ -40,7 +65,7 @@ router.get('/', function (req, res, next) {
         }
         res.json(results);
     }, function (error) {
-        console.trace(error.message);
+        console.trace("Error");
     });
 
 });
