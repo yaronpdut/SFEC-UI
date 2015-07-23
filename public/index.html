@@ -1,5 +1,7 @@
-<html>
-<head>
+<HTML>
+
+<HEAD>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/js/highlight.pack.js"></script>
@@ -12,51 +14,87 @@
 
     <link rel="stylesheet" href="/css/style.css">
 
-</head>
-<body>
-<header>LOCO - Look for Code</header>
 
-<table height="100%" border="0" cellspacing="2" cellpadding="0">
+    <style>
+        body {
+            background-color: #FFFFFF;
+        }
 
-    <tr id="search_row" align="left">
-        <th align="left"><img id="srcimg" src="/images/search-icon.png"><input id="searchString" class="search"/>
-            <select name="querytype" id="querytype">
-                <option selected="selected">full</option>
-                <option>prefix</option>
-                <option>exact</option>
-            </select>
+        #div_header {
+            margin-bottom: 10px;
+            font-family: Arial;
+            font-size: 24px;
+        }
 
-        </th>
+        #div_subheader {
+            margin-bottom: 10px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+            horizontal-align: middle;
+        }
 
-    </tr>
+        #div_right {
+            float: right;
+            width: 70%;
+            display: inline;
+            height: 90%;
+            overflow: scroll;
 
-    <tr>
-        <td class="left_side" valign="top">
-            <div id="left_content">
-                <ul class="list"></ul>
-            </div>
+        }
 
-            <div style="display:none;">
-                <li id="filename-item">
-                    <ul class="filename"></ul>
-                </li>
-            </div>
-        </td>
-        <td class="right_side">
-            <div id="fileNameHeader"></div>
-            <div id="source_code">
+        #div_left {
+            overflow: scroll;
+            float: left;
+            display: block;
+            width: 29%;
+            height: 90%
+        }
+    </style>
 
-            </div>
-        </td>
-    </tr>
+    <TITLE>LOCO - Look for Code</TITLE>
+</HEAD>
+<BODY>
+<div id="div_header">
+    <h1 style="display: inline; ">LOCO - Look for Code</h1>
+    <img style="display: inline; float:right;" src="images/AA_Logo_NICE_Systems.jpg" alt="logo" />
 
-</table>
-</body>
+</div>
+<div id="div_subheader">
+    <div>
+        <input id="searchString" class="search"/>
+
+        <select name="querytype" id="querytype">
+            <option selected="selected">full</option>
+            <option>prefix</option>
+            <option>exact</option>
+        </select>
+        <div id="results_stat" style="display: inline-block;"><p id="results_stat"></p></div>
+    </div>
+
+
+</div>
+<div id="div_container">
+    <div id="div_right">
+        <div id="fileNameHeader"></div>
+        <div id="source_code">
+        </div>
+    </div>
+    <div id="div_left">
+        <div id="left_content">
+            <ul class="list"></ul>
+        </div>
+        <div style="display:none;">
+            <li id="filename-item">
+                <ul class="filename"></ul>
+            </li>
+        </div>
+    </div>
+    <div>
+    </div>
+
+</div>
+</BODY>
 
 <script src="/js/index.js"></script>
 
-<script type="text/javascript">
-
-</script>
-
-</html>
+</HTML>
