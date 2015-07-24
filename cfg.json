@@ -1,6 +1,6 @@
 {
-  "serverAddress1" : "localhost",
-  "serverAddress" : "1.9.65.77",
+  "serverAddress" : "localhost",
+  "serverAddress1" : "1.9.65.77",
 
   "serverPort" : "9200"
 }

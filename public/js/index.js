@@ -56,7 +56,7 @@ function ProcessFiles(jsonRes)
 function PostQueryRequestToServer(searchStr, querytype) {
 
     $.ajax({
-        url: 'query/?q=' + searchStr + '&t='+ querytype,
+        url: encodeURI('query/?q=' + searchStr + '&t='+ querytype),
         type: 'GET',
         success: function (response) {
             var values = [];
@@ -78,12 +78,14 @@ function PostQueryRequestToServer(searchStr, querytype) {
     });
 }
 
-function fillFileDetails(response) {
+function fillFileDetails(response, fn, dir) {
     $('#source_code').html("<pre><code>" + (response) + "</pre></code>");
     $('pre code').each(function (i, block) {
         hljs.highlightBlock(block);
     });
-    $('#fileNameHeader').html("<h4>" + dir + "\\" + fn + "</h4>")
+    var fullPath = dir + "\\" + fn
+
+    $('#fileNameHeader').html('<h4><a href="' + fullPath + '">'+fullPath+'</a></h4>')
 }
 
 function retrieveFileFromServer(id, fn, dir) {
